@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propose Day</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Oswald:wght@700&family=Satisfy&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  background:#fff;
+  background-image:url('doodle.webp');
+  background-repeat:repeat;
+  background-size:700px;
+  animation:bgMove 55s linear infinite;
+  overflow:hidden;
+  font-family:'Satisfy', cursive;
+  position:relative;
+}
+
+@keyframes bgMove{
+  from{background-position:0 0;}
+  to{background-position:700px 700px;}
+}
+
+/* ⭐ background stars */
+.star-bg{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+.star-bg span{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:rgba(0,0,0,0.65);
+  border-radius:50%;
+  box-shadow:0 0 6px rgba(0,0,0,0.5);
+  animation:twinkle 2.4s infinite ease-in-out;
+}
+@keyframes twinkle{
+  0%,100%{opacity:.5;}
+  50%{opacity:.10;}
+}
+
+.container{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  position:relative;
+  z-index:2;
+}
+
+/* glow box */
+.glow-box{
+  background:rgba(0,0,0,0.65);
+  padding:8px 20px;
+  border-radius:22px;
+  border:2px solid rgba(60,30,80,0.5);
+  box-shadow:0 0 4px rgba(60,30,80,.3), 0 0 8px rgba(60,30,80,.2);
+  margin:5px 0;
+}
+
+/* FIRST PAGE */
+#main h1{
+  font-family:'Great Vibes', cursive;
+  font-size:4.3rem;
+  color:#fff;
+}
+#main h2{
+  font-size:2.3rem;
+  color:#fff;
+  white-space:nowrap;
+}
+
+.buttons{
+  display:flex;
+  gap:50px;
+  margin-top:36px;
+}
+button{
+  padding:14px 38px;
+  font-size:1.8rem;
+  font-family:'Oswald', sans-serif;
+  background:#000;
+  color:#fff;
+  border:none;
+  border-radius:36px;
+  cursor:pointer;
+}
+
+/* SECOND PAGE */
+#yay{display:none;}
+
+#yay h1{
+  font-family:'Oswald', sans-serif;
+  font-size:2.3rem;
+  color:#fff;
+  text-transform:lowercase;
+}
+
+#yay h2{
+  font-family:'Oswald', sans-serif;
+  font-size:1.55rem;
+  color:#fff;
+  white-space:nowrap;
+}
+
+.date{
+  font-size:0.9rem;
+  color:#fff;
+  margin-bottom:3px;
+}
+
+/* photo + heart wrapper */
+.photo-wrap{
+  position:relative;
+  margin:6px 0;
+}
+
+.love-photo{
+  width:300px;
+  max-width:90%;
+  opacity:0;
+  transform:scale(.9);
+  transition:opacity 1.4s ease, transform 1.4s ease;
+  box-shadow:0 0 10px rgba(60,30,80,.4);
+}
+
+.love-photo.show{
+  opacity:1;
+  transform:scale(1);
+  animation:heartbeat 3.2s infinite ease-in-out;
+}
+
+/* heartbeat glow */
+@keyframes heartbeat{
+  0%{box-shadow:0 0 10px rgba(60,30,80,.4);}
+  50%{box-shadow:0 0 25px rgba(60,30,80,.6);}
+  100%{box-shadow:0 0 10px rgba(60,30,80,.4);}
+}
+
+/* red outline heart */
+.heart-outline{
+  position:absolute;
+  inset:-18px;
+  border:3px solid rgba(255,0,0,0.55);
+  border-radius:20px;
+  opacity:0;
+  animation:heartAppear 4.5s ease forwards;
+}
+
+@keyframes heartAppear{
+  0%{opacity:0; transform:scale(.85);}
+  20%{opacity:1;}
+  80%{opacity:1;}
+  100%{opacity:0; transform:scale(1.05);}
+}
+
+.line{
+  font-family:'Great Vibes', cursive;
+  font-size:2rem;
+  color:#fff;
+  letter-spacing:2px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="star-bg" id="stars"></div>
+
+<!-- FIRST PAGE -->
+<div class="container" id="main">
+  <div class="glow-box"><h1>Will you be my Valentine</h1></div>
+  <div class="glow-box"><h2>GUNDDUUUU? 💟</h2></div>
+
+  <div class="buttons">
+    <button id="yesBtn">YES 🥰</button>
+    <button id="noBtn">NO 🤪</button>
+  </div>
+</div>
+
+<!-- SECOND PAGE -->
+<div class="container" id="yay">
+  <div class="glow-box"><h1>yayy!! 🌻</h1></div>
+  <div class="glow-box"><h2>HAPPY PROPOSE DAY 🧿✨</h2></div>
+  <div class="glow-box date">09.12.2025</div>
+
+  <div class="photo-wrap">
+    <img src="photo1.png" class="love-photo" id="photo">
+
+  </div>
+
+  <div class="glow-box line">It's Always Us 💟</div>
+</div>
+
+<script>
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
+const main=document.getElementById("main");
+const yay=document.getElementById("yay");
+const photo=document.getElementById("photo");
+
+
+yesBtn.onclick=()=>{
+  main.style.display="none";
+  yay.style.display="flex";
+  setTimeout(()=>{
+    photo.classList.add("show");
+    heart.style.opacity="1";
+    setTimeout(()=>heart.style.opacity="0",4500);
+  },200);
+};
+
+document.addEventListener("mousemove",e=>{
+  const r=noBtn.getBoundingClientRect();
+  const d=Math.hypot(e.clientX-(r.left+r.width/2),e.clientY-(r.top+r.height/2));
+  if(d<120){
+    noBtn.style.position="fixed";
+    noBtn.style.left=Math.random()*(innerWidth-120)+"px";
+    noBtn.style.top=Math.random()*(innerHeight-70)+"px";
+  }
+});
+
+/* generate stars */
+const starWrap=document.getElementById("stars");
+for(let i=0;i<110;i++){
+  const s=document.createElement("span");
+  s.style.left=Math.random()*100+"%";
+  s.style.top=Math.random()*100+"%";
+  s.style.animationDelay=Math.random()*3+"s";
+  starWrap.appendChild(s);
+}
+</script>
+
+</body>
+</html>
